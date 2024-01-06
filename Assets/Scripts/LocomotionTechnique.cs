@@ -46,13 +46,13 @@ public class LocomotionTechnique : MonoBehaviour
     void Start()
     {
         hmdStartPositionY = hmd.transform.localPosition.y;
-        leaningThreshold = 0.15f;
-        movementSpeed = 3f;
-        maxSpeed = 15f;
+        leaningThreshold = 0.1f;
+        movementSpeed = 1f;
+        maxSpeed = 6f;
         rotationThreshold = 0.05f;
         rotationSpeed = 75f;
         elevationThreshold = 0.05f;
-        elevationSpeed = 5f;
+        elevationSpeed = 2f;
         playerRB = player.GetComponent<Rigidbody>();
         moving = false;
     }
@@ -190,6 +190,5 @@ public class LocomotionTechnique : MonoBehaviour
     void SetBroomHeight()
     {
         broomControllerStartY = OVRInput.GetLocalControllerPosition(leftController).y;
-        Debug.Log("---------------------------------------------------------- BROOM HEIGTH CHANGED -------------------------------------------------------");
     }
 }
