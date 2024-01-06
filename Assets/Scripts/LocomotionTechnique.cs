@@ -14,6 +14,7 @@ public class LocomotionTechnique : MonoBehaviour
     [SerializeField] private Vector3 offset;
     [SerializeField] private bool isIndexTriggerDown;
 
+    private bool moving;
 
     public GameObject player;
     private Rigidbody playerRB;
@@ -32,6 +33,8 @@ public class LocomotionTechnique : MonoBehaviour
     private float currentPositionX;
     private float rotationThreshold;
     private float rotationSpeed;
+    private float elevationThreshold;
+    private float elevationSpeed;
 
 
     /////////////////////////////////////////////////////////
@@ -45,10 +48,13 @@ public class LocomotionTechnique : MonoBehaviour
         hmdStartPositionY = hmd.transform.localPosition.y;
         leaningThreshold = 0.15f;
         movementSpeed = 3f;
-        maxSpeed = 7f;
-        rotationThreshold = 0.02f;
-        rotationSpeed = 50f;
+        maxSpeed = 15f;
+        rotationThreshold = 0.05f;
+        rotationSpeed = 75f;
+        elevationThreshold = 0.05f;
+        elevationSpeed = 5f;
         playerRB = player.GetComponent<Rigidbody>();
+        moving = false;
     }
 
     private void FixedUpdate()
@@ -69,31 +75,18 @@ public class LocomotionTechnique : MonoBehaviour
         if (hmdStartPositionY == 0)
         {
             hmdStartPositionY = hmd.transform.localPosition.y;
-            broomControllerStartY = OVRInput.GetLocalControllerPosition(leftController).y;
             broomControllerStartX = OVRInput.GetLocalControllerPosition(leftController).x;
+            SetBroomHeight();
         }
 
         //Forward movement
         leaningDistance = Mathf.Abs(hmdStartPositionY - hmd.transform.localPosition.y);
 
-        //Left and Right roation
-        Debug.Log($"----------------------- Start Position Broom y={broomControllerStartY} x={broomControllerStartX} ------------------");
-
+        //Left and Right movement
         currentPositionY = OVRInput.GetLocalControllerPosition(leftController).y;
         
-
         //Up and Down movement
         currentPositionX = OVRInput.GetLocalControllerPosition(leftController).x;
-        Debug.Log($"----------------------- Current rotation x={currentPositionX} ------------------");
-
-        if (currentPositionX > (broomControllerStartX + rotationThreshold))
-        {
-            //player.transform.position += transform.up * Time.deltaTime * movementSpeed;
-        }
-        else if (currentPositionX < (broomControllerStartX - rotationThreshold))
-        {
-            //player.transform.position += transform.down * Time.deltaTime * movementSpeed;
-        }
 
         ////////////////////////////////////////////////////////////////////////////////
         // These are for the game mechanism.
@@ -147,10 +140,22 @@ public class LocomotionTechnique : MonoBehaviour
             {
                 playerRB.velocity = playerRB.velocity.normalized * maxSpeed;
             }
+
+            if (moving == false)
+            {
+                moving = true;
+                SetBroomHeight();
+            }
         }
         else
         {
             playerRB.velocity = playerRB.velocity * 0.97f;
+
+            if (moving == true)
+            {
+                moving = false;
+                SetBroomHeight();
+            }
         }
     }
 
@@ -170,6 +175,21 @@ public class LocomotionTechnique : MonoBehaviour
 
     void MovePlayerVertically()
     {
+        if (currentPositionY > (broomControllerStartY + elevationThreshold))
+        {
+            //up
+            player.transform.position += transform.up * Time.deltaTime * elevationSpeed;
+        }
+        else if (currentPositionY < (broomControllerStartY - elevationThreshold))
+        {
+            //down
+            player.transform.position -= transform.up * Time.deltaTime * elevationSpeed;
+        }
+    }
 
+    void SetBroomHeight()
+    {
+        broomControllerStartY = OVRInput.GetLocalControllerPosition(leftController).y;
+        Debug.Log("---------------------------------------------------------- BROOM HEIGTH CHANGED -------------------------------------------------------");
     }
 }
