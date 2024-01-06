@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class LocomotionTechnique : MonoBehaviour
@@ -16,6 +15,24 @@ public class LocomotionTechnique : MonoBehaviour
     [SerializeField] private bool isIndexTriggerDown;
 
 
+    public GameObject player;
+    private Rigidbody playerRB;
+    private float leaningThreshold;
+
+    //Leaning
+    private float hmdStartPositionY;
+    private float leaningDistance;
+    private float movementSpeed;
+    private float maxSpeed;
+
+    //Rotation
+    private Quaternion broomStartRotation;
+    private float currentRotationY;
+    private float currentRotationX;
+    private float rotationThreshold;
+    private float rotationSpeed;
+
+
     /////////////////////////////////////////////////////////
     // These are for the game mechanism.
     public ParkourCounter parkourCounter;
@@ -24,7 +41,20 @@ public class LocomotionTechnique : MonoBehaviour
     
     void Start()
     {
-        
+        hmdStartPositionY = hmd.transform.localPosition.y;
+        leaningThreshold = 0.15f;
+        movementSpeed = 5f;
+        maxSpeed = 20f;
+        broomStartRotation = OVRInput.GetLocalControllerRotation(leftController);
+        rotationThreshold = 2f;
+        rotationSpeed = 1f;
+        playerRB = player.GetComponent<Rigidbody>();
+        Debug.Log($"--------------------------- START POSITION {hmd.transform.localPosition.y} ------------------------------------");
+    }
+
+    private void FixedUpdate()
+    {
+        MovePlayerForward();
     }
 
     void Update()
@@ -32,52 +62,48 @@ public class LocomotionTechnique : MonoBehaviour
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         // Please implement your LOCOMOTION TECHNIQUE in this script :D.
         leftTriggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, leftController); 
-        rightTriggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, rightController); 
+        rightTriggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, rightController);
 
-        if (leftTriggerValue > 0.95f && rightTriggerValue > 0.95f)
+        //Set start position if zero
+        if (hmdStartPositionY == 0)
         {
-            if (!isIndexTriggerDown)
-            {
-                isIndexTriggerDown = true;
-                startPos = (OVRInput.GetLocalControllerPosition(leftController) + OVRInput.GetLocalControllerPosition(rightController)) / 2;
-            }
-            offset = hmd.transform.forward.normalized *
-                    ((OVRInput.GetLocalControllerPosition(leftController) - startPos) +
-                     (OVRInput.GetLocalControllerPosition(rightController) - startPos)).magnitude;
-            Debug.DrawRay(startPos, offset, Color.red, 0.2f);
+            hmdStartPositionY = hmd.transform.localPosition.y;
         }
-        else if (leftTriggerValue > 0.95f && rightTriggerValue < 0.95f)
-        {
-            if (!isIndexTriggerDown)
-            {
-                isIndexTriggerDown = true;
-                startPos = OVRInput.GetLocalControllerPosition(leftController);
-            }
-            offset = hmd.transform.forward.normalized *
-                     (OVRInput.GetLocalControllerPosition(leftController) - startPos).magnitude;
-            Debug.DrawRay(startPos, offset, Color.red, 0.2f);
-        }
-        else if (leftTriggerValue < 0.95f && rightTriggerValue > 0.95f)
-        {
-            if (!isIndexTriggerDown)
-            {
-                isIndexTriggerDown = true;
-                startPos = OVRInput.GetLocalControllerPosition(rightController);
-            }
-           offset = hmd.transform.forward.normalized *
-                    (OVRInput.GetLocalControllerPosition(rightController) - startPos).magnitude;
-            Debug.DrawRay(startPos, offset, Color.red, 0.2f);
-        }
-        else
-        {
-            if (isIndexTriggerDown)
-            {
-                isIndexTriggerDown = false;
-                offset = Vector3.zero;
-            }
-        }
-        this.transform.position = this.transform.position + (offset) * translationGain;
 
+        //Forward movement
+        leaningDistance = Mathf.Abs(hmdStartPositionY - hmd.transform.localPosition.y);
+        Debug.Log($"--------------------------- DISTANCE {leaningDistance} ------------------------------------");
+        Debug.Log($"--------------------------- POSITION {hmd.transform.localPosition.y} ------------------------------------");
+
+
+        //Left and Right roation
+        Debug.Log($"----------------------- Start rotation y={broomStartRotation.y} x={broomStartRotation.x} ------------------");
+        currentRotationY = OVRInput.GetLocalControllerRotation(leftController).y;
+        Debug.Log($"----------------------- Current rotation y={currentRotationY} ------------------");
+
+        if (currentRotationY > (broomStartRotation.y + rotationThreshold))
+        {
+            //turn left
+            //transform.Rotate(-Vector3.up * rotationSpeed * Time.deltaTime);
+        }
+        else if (currentRotationY < (broomStartRotation.y - rotationThreshold) )
+        {
+            //turn right
+            //transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+        }
+
+        //Up and Down movement
+        currentRotationX = OVRInput.GetLocalControllerRotation(leftController).x;
+        Debug.Log($"----------------------- Current rotation x={currentRotationX} ------------------");
+
+        if (currentRotationX > (broomStartRotation.y + rotationThreshold))
+        {
+            //transform.position += transform.up * Time.deltaTime * movementSpeed;
+        }
+        else if (currentRotationX < (broomStartRotation.x - rotationThreshold))
+        {
+            //transform.position += transform.down * Time.deltaTime * movementSpeed;
+        }
 
         ////////////////////////////////////////////////////////////////////////////////
         // These are for the game mechanism.
@@ -119,5 +145,23 @@ public class LocomotionTechnique : MonoBehaviour
             other.gameObject.SetActive(false);
         }
         // These are for the game mechanism.
+    }
+
+    void MovePlayerForward()
+    {
+        if (leaningDistance > leaningThreshold)
+        {
+            playerRB.AddForce(transform.forward.normalized * movementSpeed, ForceMode.Force);
+
+            //Aus https://discussions.unity.com/t/addforce-and-maximum-speed/27860
+            if (playerRB.velocity.magnitude > maxSpeed)
+            {
+                playerRB.velocity = playerRB.velocity.normalized * maxSpeed;
+            }
+        }
+        else
+        {
+            playerRB.velocity = playerRB.velocity * 0.97f;
+        }
     }
 }
