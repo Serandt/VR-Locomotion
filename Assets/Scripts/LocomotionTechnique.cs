@@ -25,10 +25,11 @@ public class LocomotionTechnique : MonoBehaviour
     private float movementSpeed;
     private float maxSpeed;
 
-    //Rotation
-    private Quaternion broomStartRotation;
-    private float currentRotationY;
-    private float currentRotationX;
+    //Broom
+    private float broomControllerStartY;
+    private float broomControllerStartX;
+    private float currentPositionY;
+    private float currentPositionX;
     private float rotationThreshold;
     private float rotationSpeed;
 
@@ -43,18 +44,18 @@ public class LocomotionTechnique : MonoBehaviour
     {
         hmdStartPositionY = hmd.transform.localPosition.y;
         leaningThreshold = 0.15f;
-        movementSpeed = 5f;
-        maxSpeed = 20f;
-        broomStartRotation = OVRInput.GetLocalControllerRotation(leftController);
-        rotationThreshold = 2f;
-        rotationSpeed = 1f;
+        movementSpeed = 3f;
+        maxSpeed = 7f;
+        rotationThreshold = 0.02f;
+        rotationSpeed = 50f;
         playerRB = player.GetComponent<Rigidbody>();
-        Debug.Log($"--------------------------- START POSITION {hmd.transform.localPosition.y} ------------------------------------");
     }
 
     private void FixedUpdate()
     {
         MovePlayerForward();
+        MovePlayerVertically();
+        MovePlayerHorizontally();
     }
 
     void Update()
@@ -68,41 +69,30 @@ public class LocomotionTechnique : MonoBehaviour
         if (hmdStartPositionY == 0)
         {
             hmdStartPositionY = hmd.transform.localPosition.y;
+            broomControllerStartY = OVRInput.GetLocalControllerPosition(leftController).y;
+            broomControllerStartX = OVRInput.GetLocalControllerPosition(leftController).x;
         }
 
         //Forward movement
         leaningDistance = Mathf.Abs(hmdStartPositionY - hmd.transform.localPosition.y);
-        Debug.Log($"--------------------------- DISTANCE {leaningDistance} ------------------------------------");
-        Debug.Log($"--------------------------- POSITION {hmd.transform.localPosition.y} ------------------------------------");
-
 
         //Left and Right roation
-        Debug.Log($"----------------------- Start rotation y={broomStartRotation.y} x={broomStartRotation.x} ------------------");
-        currentRotationY = OVRInput.GetLocalControllerRotation(leftController).y;
-        Debug.Log($"----------------------- Current rotation y={currentRotationY} ------------------");
+        Debug.Log($"----------------------- Start Position Broom y={broomControllerStartY} x={broomControllerStartX} ------------------");
 
-        if (currentRotationY > (broomStartRotation.y + rotationThreshold))
-        {
-            //turn left
-            //transform.Rotate(-Vector3.up * rotationSpeed * Time.deltaTime);
-        }
-        else if (currentRotationY < (broomStartRotation.y - rotationThreshold) )
-        {
-            //turn right
-            //transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
-        }
+        currentPositionY = OVRInput.GetLocalControllerPosition(leftController).y;
+        
 
         //Up and Down movement
-        currentRotationX = OVRInput.GetLocalControllerRotation(leftController).x;
-        Debug.Log($"----------------------- Current rotation x={currentRotationX} ------------------");
+        currentPositionX = OVRInput.GetLocalControllerPosition(leftController).x;
+        Debug.Log($"----------------------- Current rotation x={currentPositionX} ------------------");
 
-        if (currentRotationX > (broomStartRotation.y + rotationThreshold))
+        if (currentPositionX > (broomControllerStartX + rotationThreshold))
         {
-            //transform.position += transform.up * Time.deltaTime * movementSpeed;
+            //player.transform.position += transform.up * Time.deltaTime * movementSpeed;
         }
-        else if (currentRotationX < (broomStartRotation.x - rotationThreshold))
+        else if (currentPositionX < (broomControllerStartX - rotationThreshold))
         {
-            //transform.position += transform.down * Time.deltaTime * movementSpeed;
+            //player.transform.position += transform.down * Time.deltaTime * movementSpeed;
         }
 
         ////////////////////////////////////////////////////////////////////////////////
@@ -151,9 +141,8 @@ public class LocomotionTechnique : MonoBehaviour
     {
         if (leaningDistance > leaningThreshold)
         {
-            playerRB.AddForce(transform.forward.normalized * movementSpeed, ForceMode.Force);
+            playerRB.AddForce(transform.forward.normalized * movementSpeed, ForceMode.VelocityChange);
 
-            //Aus https://discussions.unity.com/t/addforce-and-maximum-speed/27860
             if (playerRB.velocity.magnitude > maxSpeed)
             {
                 playerRB.velocity = playerRB.velocity.normalized * maxSpeed;
@@ -163,5 +152,24 @@ public class LocomotionTechnique : MonoBehaviour
         {
             playerRB.velocity = playerRB.velocity * 0.97f;
         }
+    }
+
+    void MovePlayerHorizontally()
+    {
+        if (currentPositionX > (broomControllerStartX + rotationThreshold))
+        {
+            //turn left
+            player.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+        }
+        else if (currentPositionX < (broomControllerStartX - rotationThreshold))
+        {
+            //turn right
+            player.transform.Rotate(-Vector3.up * rotationSpeed * Time.deltaTime);
+        }
+    }
+
+    void MovePlayerVertically()
+    {
+
     }
 }
