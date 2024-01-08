@@ -58,7 +58,7 @@ public class WandScript : MonoBehaviour
         {
             attached = true;
             selectionTaskMeasure.enemiesCount = enemiesCount;
-            selectionTaskMeasure.wand = this.gameObject;
+            selectionTaskMeasure.wand = wand;
             selectionTaskMeasure.isTaskStart = true;
             enemies.SetActive(true);
             selectionTaskMeasure.StartOneTask();
