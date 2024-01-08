@@ -15,6 +15,7 @@ public class SelectionTaskMeasure : MonoBehaviour
     public GameObject donePanel;
     public TMP_Text startPanelText;
     public TMP_Text scoreText;
+    public TMP_Text enemyCounterText;
     public int completeCount;
     public bool isTaskStart;
     public bool isTaskEnd;
@@ -48,9 +49,12 @@ public class SelectionTaskMeasure : MonoBehaviour
         {
             // recording time
             taskTime += Time.deltaTime;
+            enemyCounterText.text = $"Enemies remaining: {enemiesCount}";
 
             if (enemiesCount == 0)
             {
+                enemyCounterText.text = "All enemies defeated!";
+                Invoke("EnemyCounterTextReset", 5f);
                 EndOneTask();
             }
         }
@@ -100,5 +104,10 @@ public class SelectionTaskMeasure : MonoBehaviour
         }
         isCountdown = false;
         yield return 0;
+    }
+
+    private void EnemyCounterTextReset()
+    {
+        enemyCounterText.text = "";
     }
 }
