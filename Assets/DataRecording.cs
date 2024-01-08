@@ -12,23 +12,21 @@ public class DataRecording : MonoBehaviour
         public string round;
         public int number;
         public float taskTime;
-        public Vector3 error; // error is calculated by the distance between three cubes (e.g., red to red, green to green, and blue to blue)
 
-        public ObjectInteractionData(string round, int number, float taskTime, Vector3 error)
+        public ObjectInteractionData(string round, int number, float taskTime)
         {
             this.round = round;
             this.number = number;
             this.taskTime = taskTime;
-            this.error = error;
         }
     }
     
     public List<ObjectInteractionData> dataList = new List<ObjectInteractionData>();
 
 
-    public void AddOneData(string round, int number, float taskTime, Vector3 error)
+    public void AddOneData(string round, int number, float taskTime)
     {
-        dataList.Add(new ObjectInteractionData(round, number, taskTime, error));
+        dataList.Add(new ObjectInteractionData(round, number, taskTime));
     }
 
 
