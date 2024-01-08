@@ -6,6 +6,7 @@ public class WandScript : MonoBehaviour
 {
     public OVRInput.Controller controllerInput;
     public GameObject rightController;
+    public GameObject particles;
     public GameObject enemies;
     public SelectionTaskMeasure selectionTaskMeasure;
     public int enemiesCount;
@@ -60,6 +61,7 @@ public class WandScript : MonoBehaviour
             attached = true;
             selectionTaskMeasure.enemiesCount = enemiesCount;
             selectionTaskMeasure.wand = wand;
+            selectionTaskMeasure.particles = particles;
             selectionTaskMeasure.isTaskStart = true;
             enemies.SetActive(true);
             selectionTaskMeasure.StartOneTask();

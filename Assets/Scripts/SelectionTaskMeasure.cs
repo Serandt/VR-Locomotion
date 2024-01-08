@@ -30,6 +30,7 @@ public class SelectionTaskMeasure : MonoBehaviour
 
     public int enemiesCount;
     public GameObject wand;
+    public GameObject particles;
 
 
     // Start is called before the first frame update
@@ -82,6 +83,7 @@ public class SelectionTaskMeasure : MonoBehaviour
 
         // Debug.Log("Time: " + taskTime.ToString("F1") + "\nPrecision: " + manipulationError.magnitude.ToString("F1"));
         Destroy(wand);
+        Destroy(particles);
         StartCoroutine(Countdown(3f));
     }
 

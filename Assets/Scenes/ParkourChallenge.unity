@@ -9726,6 +9726,11 @@ PrefabInstance:
       objectReference: {fileID: 1001469228}
     - target: {fileID: 8417219881993044456, guid: cf7de9f974df7cf449ca6745c9a02c9b,
         type: 3}
+      propertyPath: particles
+      value: 
+      objectReference: {fileID: 870863963}
+    - target: {fileID: 8417219881993044456, guid: cf7de9f974df7cf449ca6745c9a02c9b,
+        type: 3}
       propertyPath: enemiesCount
       value: 3
       objectReference: {fileID: 0}
@@ -14393,6 +14398,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 880453573}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &870863963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4501652136538834566, guid: 9f3f231f27f69ab4bb2dcb83e808dbc7,
+    type: 3}
+  m_PrefabInstance: {fileID: 753575347}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &875124798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17804,6 +17815,11 @@ PrefabInstance:
       objectReference: {fileID: 475578079}
     - target: {fileID: 8417219881993044456, guid: cf7de9f974df7cf449ca6745c9a02c9b,
         type: 3}
+      propertyPath: particles
+      value: 
+      objectReference: {fileID: 1520051777}
+    - target: {fileID: 8417219881993044456, guid: cf7de9f974df7cf449ca6745c9a02c9b,
+        type: 3}
       propertyPath: enemiesCount
       value: 4
       objectReference: {fileID: 0}
@@ -18994,6 +19010,11 @@ PrefabInstance:
       propertyPath: enemies
       value: 
       objectReference: {fileID: 140679763}
+    - target: {fileID: 8417219881993044456, guid: cf7de9f974df7cf449ca6745c9a02c9b,
+        type: 3}
+      propertyPath: particles
+      value: 
+      objectReference: {fileID: 2077414591}
     - target: {fileID: 8417219881993044456, guid: cf7de9f974df7cf449ca6745c9a02c9b,
         type: 3}
       propertyPath: enemiesCount
@@ -24072,6 +24093,7 @@ MonoBehaviour:
   partSumErr: 0
   enemiesCount: 0
   wand: {fileID: 0}
+  particles: {fileID: 0}
 --- !u!114 &1487194129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24207,6 +24229,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7597839365259282264, guid: 2700c7e7782f9b34eb565c9fa335fa5e,
     type: 3}
   m_PrefabInstance: {fileID: 2108689500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1520051777 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4501652136538834566, guid: 9f3f231f27f69ab4bb2dcb83e808dbc7,
+    type: 3}
+  m_PrefabInstance: {fileID: 6631031507778687888}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1522309870
 PrefabInstance:
@@ -32185,6 +32213,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3942613375915263889, guid: 6b3c85587dc0a514bbf5da8ff3106582,
     type: 3}
   m_PrefabInstance: {fileID: 2077184435}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2077414591 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4501652136538834566, guid: 9f3f231f27f69ab4bb2dcb83e808dbc7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1796130632}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2078864393
 PrefabInstance:
