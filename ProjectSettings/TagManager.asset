@@ -10,6 +10,8 @@ TagManager:
   - selectionTaskStart
   - done
   - objectInteractionTask
+  - rightController
+  - projectile
   layers:
   - Default
   - TransparentFX

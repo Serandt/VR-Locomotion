@@ -28,6 +28,9 @@ public class SelectionTaskMeasure : MonoBehaviour
     public float partSumTime;
     public float partSumErr;
 
+    public int enemiesCount;
+    public GameObject wand;
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +41,8 @@ public class SelectionTaskMeasure : MonoBehaviour
         donePanel.SetActive(false);
         scoreText.text = "Part" + part.ToString();
         taskStartPanel.SetActive(false);
+        enemiesCount = 0;
+        wand = null;
     }
 
     // Update is called once per frame
@@ -59,12 +64,7 @@ public class SelectionTaskMeasure : MonoBehaviour
     public void StartOneTask()
     {
         taskTime = 0f;
-        taskStartPanel.SetActive(false);
         donePanel.SetActive(true);
-        objectTStartingPos = taskUI.transform.position + taskUI.transform.forward * 0.5f + taskUI.transform.up * 0.75f;
-        targetTStartingPos = taskUI.transform.position + taskUI.transform.forward * 0.75f + taskUI.transform.up * 1.2f;
-        objectT = Instantiate(objectTPrefab, objectTStartingPos, new Quaternion(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f)));
-        targerT = Instantiate(targerTPrefab, targetTStartingPos, new Quaternion(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f)));
     }
 
     public void EndOneTask()
@@ -87,8 +87,7 @@ public class SelectionTaskMeasure : MonoBehaviour
         dataRecording.AddOneData(parkourCounter.locomotionTech.stage.ToString(), completeCount, taskTime, manipulationError);
 
         // Debug.Log("Time: " + taskTime.ToString("F1") + "\nPrecision: " + manipulationError.magnitude.ToString("F1"));
-        Destroy(objectT);
-        Destroy(targerT);
+        Destroy(wand);
         StartCoroutine(Countdown(3f));
     }
 

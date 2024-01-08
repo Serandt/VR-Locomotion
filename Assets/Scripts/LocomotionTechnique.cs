@@ -49,7 +49,7 @@ public class LocomotionTechnique : MonoBehaviour
         hmdStartPositionY = hmd.transform.localPosition.y;
         leaningThreshold = 0.1f;
         movementSpeed = 1f;
-        maxSpeed = 6f;
+        maxSpeed = 5f;
         rotationThreshold = 0.05f;
         rotationSpeed = 75f;
         elevationThreshold = 0.05f;
@@ -121,7 +121,7 @@ public class LocomotionTechnique : MonoBehaviour
             Vector3 tmpTarget = new Vector3(hmd.transform.position.x, tempValueY, hmd.transform.position.z);
             selectionTaskMeasure.taskUI.transform.LookAt(tmpTarget);
             selectionTaskMeasure.taskUI.transform.Rotate(new Vector3(0, 180f, 0));
-            selectionTaskMeasure.taskStartPanel.SetActive(true);
+            //selectionTaskMeasure.taskStartPanel.SetActive(true);
         }
         else if (other.CompareTag("coin"))
         {
