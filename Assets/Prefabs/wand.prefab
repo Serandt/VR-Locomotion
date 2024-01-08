@@ -47,6 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controllerInput: 2
   rightController: {fileID: 0}
+  enemies: {fileID: 0}
+  selectionTaskMeasure: {fileID: 0}
+  enemiesCount: 0
   wand: {fileID: 8651011584150110219}
   projectile: {fileID: 5989260422133307913, guid: f35630d215db6a24b9f35fc4a2463e9a,
     type: 3}
@@ -77,6 +80,7 @@ GameObject:
   - component: {fileID: 8306117243201051313}
   - component: {fileID: 4965950909985182996}
   - component: {fileID: 7137762595362120158}
+  - component: {fileID: 3053395730010466907}
   m_Layer: 0
   m_Name: wand
   m_TagString: Untagged
@@ -91,7 +95,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8651011584150110219}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.2273507, y: -0, z: -0, w: 0.973813}
   m_LocalPosition: {x: 0, y: 0.531, z: 1.688}
   m_LocalScale: {x: 0.34593, y: 0.34593, z: 0.34593}
   m_ConstrainProportionsScale: 0
@@ -99,7 +103,7 @@ Transform:
   - {fileID: 8417219881993044246}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -26.282, y: 0, z: 0}
 --- !u!33 &4965950909985182996
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -150,3 +154,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &3053395730010466907
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8651011584150110219}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1a60d41c5b1a32847a56d8f06b895b16, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

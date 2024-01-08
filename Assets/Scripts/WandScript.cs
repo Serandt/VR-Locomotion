@@ -56,6 +56,7 @@ public class WandScript : MonoBehaviour
     {
         if (other.tag == "rightController")
         {
+            wand.GetComponent<Animator>().enabled = false;
             attached = true;
             selectionTaskMeasure.enemiesCount = enemiesCount;
             selectionTaskMeasure.wand = wand;
