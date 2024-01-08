@@ -10,9 +10,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "projectile")
         {
-            Debug.Log($"------------------------------------------ ENEMY COUNT BEFORE {selectionTaskMeasure.enemiesCount} ---------------------------------------");
             selectionTaskMeasure.enemiesCount--;
-            Debug.Log($"------------------------------------------ ENEMY COUNT AFTER {selectionTaskMeasure.enemiesCount} ---------------------------------------");
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
