@@ -42,7 +42,6 @@ public class SelectionTaskMeasure : MonoBehaviour
         scoreText.text = "Part" + part.ToString();
         taskStartPanel.SetActive(false);
         enemiesCount = 0;
-        wand = null;
     }
 
     // Update is called once per frame
@@ -52,6 +51,11 @@ public class SelectionTaskMeasure : MonoBehaviour
         {
             // recording time
             taskTime += Time.deltaTime;
+
+            if (enemiesCount == 0)
+            {
+                EndOneTask();
+            }
         }
 
         if (isCountdown)
@@ -64,7 +68,6 @@ public class SelectionTaskMeasure : MonoBehaviour
     public void StartOneTask()
     {
         taskTime = 0f;
-        donePanel.SetActive(true);
     }
 
     public void EndOneTask()
@@ -76,18 +79,18 @@ public class SelectionTaskMeasure : MonoBehaviour
         isTaskStart = false;
         
         // distance error
-        manipulationError = Vector3.zero;
-        for (int i = 0; i < targerT.transform.childCount; i++)
-        {
-            manipulationError += targerT.transform.GetChild(i).transform.position - objectT.transform.GetChild(i).transform.position;
-        }
-        scoreText.text = scoreText.text + "Time: " + taskTime.ToString("F1") + ", offset: " + manipulationError.magnitude.ToString("F2") + "\n";
-        partSumErr += manipulationError.magnitude;
-        partSumTime += taskTime;
-        dataRecording.AddOneData(parkourCounter.locomotionTech.stage.ToString(), completeCount, taskTime, manipulationError);
+        //manipulationError = Vector3.zero;
+        //for (int i = 0; i < targerT.transform.childCount; i++)
+        //{
+        //    manipulationError += targerT.transform.GetChild(i).transform.position - objectT.transform.GetChild(i).transform.position;
+        //}
+        //scoreText.text = scoreText.text + "Time: " + taskTime.ToString("F1") + ", offset: " + manipulationError.magnitude.ToString("F2") + "\n";
+        //partSumErr += manipulationError.magnitude;
+        //partSumTime += taskTime;
+        //dataRecording.AddOneData(parkourCounter.locomotionTech.stage.ToString(), completeCount, taskTime, manipulationError);
 
         // Debug.Log("Time: " + taskTime.ToString("F1") + "\nPrecision: " + manipulationError.magnitude.ToString("F1"));
-        Destroy(wand);
+        wand.SetActive(false);
         StartCoroutine(Countdown(3f));
     }
 

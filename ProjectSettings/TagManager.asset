@@ -12,6 +12,7 @@ TagManager:
   - objectInteractionTask
   - rightController
   - projectile
+  - enemy
   layers:
   - Default
   - TransparentFX
