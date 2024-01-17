@@ -41,6 +41,7 @@ public class WandScript : MonoBehaviour
                 GameObject attack = Instantiate(projectile, transform.position, transform.rotation);
                 attack.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, projectVelocity, 0));
                 canShoot = false;
+                selectionTaskMeasure.projectilesCount += 1;
                 Invoke("CoolDown", 1f);
             }
 

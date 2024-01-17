@@ -12,21 +12,23 @@ public class DataRecording : MonoBehaviour
         public string round;
         public int number;
         public float taskTime;
+        public float accurycy;
 
-        public ObjectInteractionData(string round, int number, float taskTime)
+        public ObjectInteractionData(string round, int number, float taskTime, float accuracy)
         {
             this.round = round;
             this.number = number;
             this.taskTime = taskTime;
+            this.accurycy = accuracy;
         }
     }
     
     public List<ObjectInteractionData> dataList = new List<ObjectInteractionData>();
 
 
-    public void AddOneData(string round, int number, float taskTime)
+    public void AddOneData(string round, int number, float taskTime, float accuracy)
     {
-        dataList.Add(new ObjectInteractionData(round, number, taskTime));
+        dataList.Add(new ObjectInteractionData(round, number, taskTime, accuracy));
     }
 
 

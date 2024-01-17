@@ -13,6 +13,7 @@ TagManager:
   - rightController
   - projectile
   - enemy
+  - portal
   layers:
   - Default
   - TransparentFX

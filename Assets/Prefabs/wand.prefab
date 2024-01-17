@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8417219881993044247}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.168, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controllerInput: 2
   rightController: {fileID: 0}
+  particles: {fileID: 0}
   enemies: {fileID: 0}
   selectionTaskMeasure: {fileID: 0}
   enemiesCount: 0
@@ -68,7 +69,7 @@ CapsuleCollider:
   m_Radius: 2.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: -0.85, z: 0}
+  m_Center: {x: 0, y: -0.9, z: 0}
 --- !u!1 &8651011584150110219
 GameObject:
   m_ObjectHideFlags: 0

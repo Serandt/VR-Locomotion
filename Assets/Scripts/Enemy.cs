@@ -5,14 +5,66 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public SelectionTaskMeasure selectionTaskMeasure;
+    public GameObject wand;
+    private bool catched;
+    private bool inPortal;
+    private float startRotationY;
 
-    private void OnCollisionEnter(Collision collision)
+    void Start()
     {
-        if (collision.gameObject.tag == "projectile")
+        catched = false;
+        inPortal = false;
+        startRotationY = 0f;
+    }
+
+    void Update()
+    {
+        if (catched)
         {
-            selectionTaskMeasure.enemiesCount--;
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
+            transform.position = wand.transform.position;
+            transform.rotation = wand.transform.rotation;
+            transform.Rotate(-90, 0, 0);
+        }
+
+        if (inPortal)
+        {
+            Debug.Log($"------------------------- START ROTATION Z: {startRotationY}-------------------------");
+            Debug.Log($"------------------------- CURRENT ROTATION Z: {wand.GetComponentInParent<Transform>().rotation.z}-------------------------");
+            //rotate enemy in portal to defeat it
+            if (Mathf.Abs(startRotationY - wand.GetComponentInParent<Transform>().rotation.z) > 0.4f)
+            {
+                selectionTaskMeasure.enemiesCount--;
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "projectile")
+        {
+            if (!catched)
+            {
+                Destroy(other.gameObject);
+                gameObject.GetComponent<Animator>().enabled = false;
+                catched = true;
+                transform.localScale = transform.localScale * 0.2f;
+            }
+        }
+
+        if (other.gameObject.tag == "portal")
+        {
+            startRotationY = wand.GetComponentInParent<Transform>().rotation.z;
+            Debug.Log($"------------------------- Rotation Z: {startRotationY} -------------------------");
+            inPortal = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "portal")
+        {
+            inPortal = false;
         }
     }
 }

@@ -10,6 +10,7 @@ public class SelectionTaskMeasure : MonoBehaviour
     public GameObject objectT;
     public GameObject objectTPrefab;
     Vector3 objectTStartingPos;
+    public GameObject portal;
 
     public GameObject taskStartPanel;
     public GameObject donePanel;
@@ -29,9 +30,12 @@ public class SelectionTaskMeasure : MonoBehaviour
     public float partSumErr;
 
     public int enemiesCount;
+    private int enemiesInRound;
     public GameObject wand;
     public GameObject particles;
 
+    private float accuracy;
+    public int projectilesCount;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +44,9 @@ public class SelectionTaskMeasure : MonoBehaviour
         dataRecording = this.GetComponent<DataRecording>();
         part = 1;
         scoreText.text = "Part" + part.ToString();
-        enemiesCount = 0;
+        enemiesCount = 10;
+        accuracy = 0;
+        projectilesCount = 0;
     }
 
     // Update is called once per frame
@@ -54,8 +60,10 @@ public class SelectionTaskMeasure : MonoBehaviour
 
             if (enemiesCount == 0)
             {
-                enemyCounterText.text = "All enemies defeated!";
-                Invoke("EnemyCounterTextReset", 5f);
+                // release
+                isTaskEnd = true;
+                isTaskStart = false;
+
                 EndOneTask();
             }
         }
@@ -69,22 +77,26 @@ public class SelectionTaskMeasure : MonoBehaviour
     public void StartOneTask()
     {
         taskTime = 0f;
+        projectilesCount = 0;
+        portal.SetActive(true);
+        enemiesInRound = enemiesCount;
     }
 
     public void EndOneTask()
     {
-        // release
-        isTaskEnd = true;
-        isTaskStart = false;
+        enemyCounterText.text = "All enemies defeated!";
 
-        scoreText.text = scoreText.text + "Time: " + taskTime.ToString("F1") + "\n";
+        accuracy = (enemiesInRound / projectilesCount) * 100;
+        scoreText.text = scoreText.text + "Time: " + taskTime.ToString("F1") + ", Accuracy: " + $"{enemiesInRound}/{projectilesCount} ({accuracy}%)" + "\n";
         partSumTime += taskTime;
-        dataRecording.AddOneData(parkourCounter.locomotionTech.stage.ToString(), completeCount, taskTime);
+        dataRecording.AddOneData(parkourCounter.locomotionTech.stage.ToString(), completeCount, taskTime, accuracy);
 
         // Debug.Log("Time: " + taskTime.ToString("F1") + "\nPrecision: " + manipulationError.magnitude.ToString("F1"));
+        portal.SetActive(false);
         Destroy(wand);
         Destroy(particles);
         StartCoroutine(Countdown(3f));
+        Invoke("EnemyCounterTextReset", 5f);
     }
 
     IEnumerator Countdown(float t)
