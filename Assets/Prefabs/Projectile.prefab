@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5989260422133307911}
   - component: {fileID: 5989260422133307906}
   - component: {fileID: 4605240402268882223}
+  - component: {fileID: 840164546366916355}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: projectile
@@ -211,3 +212,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!122 &840164546366916355
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5989260422133307913}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294121615
+  m_Size: -0.06
