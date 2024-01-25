@@ -42,6 +42,7 @@ public class WandScript : MonoBehaviour
                 attack.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, projectVelocity, 0));
                 canShoot = false;
                 selectionTaskMeasure.projectilesCount += 1;
+                ControllerVibration();
                 Invoke("CoolDown", 1f);
             }
 
@@ -74,5 +75,16 @@ public class WandScript : MonoBehaviour
         wand.transform.position = rightController.transform.position;
         wand.transform.rotation = rightController.transform.rotation;
         wand.transform.Rotate(40, 0, 0);
+    }
+
+    void ControllerVibration()
+    {
+        OVRInput.SetControllerVibration(1, 1, OVRInput.Controller.RTouch);
+        Invoke("StopControllerVibration", 0.2f);
+    }
+
+    void StopControllerVibration()
+    {
+        OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
     }
 }
