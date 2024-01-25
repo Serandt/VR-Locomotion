@@ -12,14 +12,14 @@ public class DataRecording : MonoBehaviour
         public string round;
         public int number;
         public float taskTime;
-        public float accurycy;
+        public float accuracy;
 
         public ObjectInteractionData(string round, int number, float taskTime, float accuracy)
         {
             this.round = round;
             this.number = number;
             this.taskTime = taskTime;
-            this.accurycy = accuracy;
+            this.accuracy = accuracy;
         }
     }
     

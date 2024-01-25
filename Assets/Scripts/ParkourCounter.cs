@@ -26,6 +26,8 @@ public class ParkourCounter : MonoBehaviour
     public Transform second2FinalRespawn;
     public Vector3 currentRespawnPos;
 
+    public float accuracy;
+
     public float timeCounter;
     private float part1Time;
     private float part2Time;
@@ -50,6 +52,7 @@ public class ParkourCounter : MonoBehaviour
 
     void Start()
     {
+        accuracy = 0;
         coinCount = 0;
         timeCounter = 0.0f;
         firstBanner.SetActive(false);
@@ -139,7 +142,7 @@ public class ParkourCounter : MonoBehaviour
     void UpdateRecordText(int part, float time, int coinsCount, int coinsInPart)
     {
         string newRecords = "loco" + part.ToString() + ": " + time.ToString("F1") + ", " + coinsCount + "/" + coinsInPart + "\n" +
-                            "obj"  + part.ToString() + ": " + (selectionTaskMeasure.partSumTime/5f).ToString("F1");
+                            "obj"  + part.ToString() + ": " + (selectionTaskMeasure.partSumTime/5f).ToString("F1") + $" , accuracy: {accuracy}%";
         recordText.text = recordText.text + "\n" + newRecords;
     }
 }

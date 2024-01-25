@@ -86,8 +86,9 @@ public class SelectionTaskMeasure : MonoBehaviour
     {
         enemyCounterText.text = "All enemies defeated!";
 
-        accuracy = (enemiesInRound / projectilesCount) * 100;
-        scoreText.text = scoreText.text + "Time: " + taskTime.ToString("F1") + ", Accuracy: " + $"{enemiesInRound}/{projectilesCount} ({accuracy}%)" + "\n";
+        accuracy = (enemiesInRound * 100 / projectilesCount);
+        scoreText.text = scoreText.text + "Time: " + taskTime.ToString("F1") + ", Accuracy: " + $"Enemies={enemiesInRound}/Projectiles={projectilesCount} ({accuracy}%)" + "\n";
+        parkourCounter.accuracy = accuracy;
         partSumTime += taskTime;
         dataRecording.AddOneData(parkourCounter.locomotionTech.stage.ToString(), completeCount, taskTime, accuracy);
 
@@ -96,7 +97,7 @@ public class SelectionTaskMeasure : MonoBehaviour
         Destroy(wand);
         Destroy(particles);
         StartCoroutine(Countdown(3f));
-        Invoke("EnemyCounterTextReset", 5f);
+        Invoke("EnemyCounterTextReset", 3f);
     }
 
     IEnumerator Countdown(float t)
