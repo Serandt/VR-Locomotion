@@ -13402,6 +13402,11 @@ PrefabInstance:
       propertyPath: m_controller
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4828818719737749680, guid: d9809c5e8418bb047bf2c8ba1d1a2cec,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
 --- !u!1 &812330797 stripped
@@ -24113,6 +24118,7 @@ MonoBehaviour:
   first2SecondRespawn: {fileID: 1675355363}
   second2FinalRespawn: {fileID: 1732806372}
   currentRespawnPos: {x: 0, y: 0, z: 0}
+  accuracy: 0
   timeCounter: 0
   coinCount: 0
   parkourStart: 0
