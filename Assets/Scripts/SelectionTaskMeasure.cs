@@ -21,11 +21,12 @@ public class SelectionTaskMeasure : MonoBehaviour
     public bool isTaskStart;
     public bool isTaskEnd;
     public bool isCountdown;
+    public bool isWandAttached;
     public float taskTime;
     public GameObject taskUI;
     public ParkourCounter parkourCounter;
     public DataRecording dataRecording;
-    private int part;
+    public int part;
     public float partSumTime;
     public float partSumErr;
 
@@ -47,6 +48,7 @@ public class SelectionTaskMeasure : MonoBehaviour
         enemiesCount = 10;
         accuracy = 0;
         projectilesCount = 0;
+        isWandAttached = false;
     }
 
     // Update is called once per frame
@@ -58,7 +60,7 @@ public class SelectionTaskMeasure : MonoBehaviour
             taskTime += Time.deltaTime;
             enemyCounterText.text = $"Enemies remaining: {enemiesCount}";
 
-            if (enemiesCount == 0)
+            if (enemiesCount == 0 && isWandAttached)
             {
                 // release
                 isTaskEnd = true;
@@ -95,30 +97,13 @@ public class SelectionTaskMeasure : MonoBehaviour
         // Debug.Log("Time: " + taskTime.ToString("F1") + "\nPrecision: " + manipulationError.magnitude.ToString("F1"));
         portal.SetActive(false);
         Destroy(wand);
+        isWandAttached = false;
         Destroy(particles);
-        StartCoroutine(Countdown(3f));
+
+        scoreText.text = "Done Part " + part.ToString();
+        completeCount = 0;
+
         Invoke("EnemyCounterTextReset", 3f);
-    }
-
-    IEnumerator Countdown(float t)
-    {
-        taskTime = 0f;
-        isCountdown = true;
-        completeCount += 1;
-
-        if (completeCount > 4)
-        {
-            scoreText.text = "Done Part" + part.ToString();
-            part += 1;
-            completeCount = 0;
-        }
-        else
-        {
-            yield return new WaitForSeconds(t);
-            isCountdown = false;
-        }
-        isCountdown = false;
-        yield return 0;
     }
 
     private void EnemyCounterTextReset()

@@ -28,8 +28,6 @@ public class Enemy : MonoBehaviour
 
         if (inPortal)
         {
-            Debug.Log($"------------------------- START ROTATION Z: {startRotationY}-------------------------");
-            Debug.Log($"------------------------- CURRENT ROTATION Z: {wand.GetComponentInParent<Transform>().rotation.z}-------------------------");
             //rotate enemy in portal to defeat it
             if (Mathf.Abs(startRotationY - wand.GetComponentInParent<Transform>().rotation.z) > 0.4f)
             {
@@ -55,7 +53,6 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.tag == "portal")
         {
             startRotationY = wand.GetComponentInParent<Transform>().rotation.z;
-            Debug.Log($"------------------------- Rotation Z: {startRotationY} -------------------------");
             inPortal = true;
         }
     }

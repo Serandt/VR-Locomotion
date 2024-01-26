@@ -62,6 +62,7 @@ public class WandScript : MonoBehaviour
             wand.GetComponent<Animator>().enabled = false;
             attached = true;
             selectionTaskMeasure.enemiesCount = enemiesCount;
+            selectionTaskMeasure.isWandAttached = true;
             selectionTaskMeasure.wand = wand;
             selectionTaskMeasure.particles = particles;
             selectionTaskMeasure.isTaskStart = true;

@@ -93,6 +93,7 @@ public class ParkourCounter : MonoBehaviour
                 secondCoins.SetActive(true);
                 objIX2.SetActive(true);
                 this.GetComponent<SelectionTaskMeasure>().taskUI.transform.position = objIX2.transform.position;
+                this.GetComponent<SelectionTaskMeasure>().part = 2;
                 part1Time = timeCounter;
                 part1Count = coinCount;
                 currentRespawnPos = first2SecondRespawn.position;
@@ -107,6 +108,7 @@ public class ParkourCounter : MonoBehaviour
                 finalCoins.SetActive(true);
                 objIX3.SetActive(true);
                 this.GetComponent<SelectionTaskMeasure>().taskUI.transform.position = objIX3.transform.position;
+                this.GetComponent<SelectionTaskMeasure>().part = 3;
                 part2Time = timeCounter - part1Time;
                 part2Count = coinCount - part1Count;
                 currentRespawnPos = second2FinalRespawn.position;
