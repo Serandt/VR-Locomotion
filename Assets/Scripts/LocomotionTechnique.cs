@@ -15,6 +15,7 @@ public class LocomotionTechnique : MonoBehaviour
     [SerializeField] private bool isIndexTriggerDown;
 
     private bool moving;
+    private bool grounded;
     private bool locomotionEnabled;
 
     public GameObject player;
@@ -129,7 +130,20 @@ public class LocomotionTechnique : MonoBehaviour
             this.GetComponent<AudioSource>().Play();
             other.gameObject.SetActive(false);
         }
+        
+        if (other.CompareTag("ground"))
+        {
+            grounded = true;
+        }
         // These are for the game mechanism.
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("ground"))
+        {
+            grounded = false;
+        }
     }
 
     void MovePlayerForward()
@@ -179,12 +193,12 @@ public class LocomotionTechnique : MonoBehaviour
     {
         if (locomotionEnabled)
         {
-            if (currentPositionY > (broomControllerStartY + elevationThreshold))
+            if (currentPositionY > (broomControllerStartY + elevationThreshold) || grounded)
             {
                 //up
                 player.transform.position += transform.up * Time.deltaTime * elevationSpeed;
             }
-            else if (currentPositionY < (broomControllerStartY - elevationThreshold))
+            else if (currentPositionY < (broomControllerStartY - elevationThreshold) && !grounded)
             {
                 //down
                 player.transform.position -= transform.up * Time.deltaTime * elevationSpeed;
