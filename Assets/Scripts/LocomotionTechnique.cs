@@ -38,6 +38,8 @@ public class LocomotionTechnique : MonoBehaviour
     private float elevationThreshold;
     private float elevationSpeed;
 
+    //after fix
+    private bool PositionSetted;
 
     /////////////////////////////////////////////////////////
     // These are for the game mechanism.
@@ -48,7 +50,7 @@ public class LocomotionTechnique : MonoBehaviour
     void Start()
     {
         hmdStartPositionY = hmd.transform.localPosition.y;
-        leaningThreshold = 0.1f;
+        leaningThreshold = 0.15f;
         movementSpeed = 1f;
         maxSpeed = 5f;
         rotationThreshold = 0.05f;
@@ -58,6 +60,7 @@ public class LocomotionTechnique : MonoBehaviour
         playerRB = player.GetComponent<Rigidbody>();
         moving = false;
         locomotionEnabled = true;
+        PositionSetted = false;
     }
 
     private void FixedUpdate()
@@ -75,8 +78,9 @@ public class LocomotionTechnique : MonoBehaviour
         rightTriggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, rightController);
 
         //Set start position if zero
-        if (hmdStartPositionY == 0)
+        if (!PositionSetted && hmd.transform.localPosition.y > 0.5f)
         {
+            PositionSetted = true;
             hmdStartPositionY = hmd.transform.localPosition.y;
             broomControllerStartX = OVRInput.GetLocalControllerPosition(leftController).x;
             SetBroomHeight();
