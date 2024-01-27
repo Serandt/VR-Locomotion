@@ -4928,7 +4928,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 303576270}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.000015258787, y: 0, z: -0.000030517585}
+  m_LocalPosition: {x: 1.425, y: 1.74, z: -0.000030517585}
   m_LocalScale: {x: 0.34592998, y: 0.34593, z: 0.34592998}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18064,12 +18064,12 @@ PrefabInstance:
     - target: {fileID: 8306117243201051313, guid: cf7de9f974df7cf449ca6745c9a02c9b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8306117243201051313, guid: cf7de9f974df7cf449ca6745c9a02c9b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8306117243201051313, guid: cf7de9f974df7cf449ca6745c9a02c9b,
         type: 3}
@@ -24525,6 +24525,7 @@ MonoBehaviour:
   isTaskStart: 0
   isTaskEnd: 0
   isCountdown: 0
+  isWandAttached: 0
   taskTime: 0
   taskUI: {fileID: 701425950}
   parkourCounter: {fileID: 1487194127}
