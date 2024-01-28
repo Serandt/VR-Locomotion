@@ -94,6 +94,7 @@ public class ParkourCounter : MonoBehaviour
                 objIX2.SetActive(true);
                 this.GetComponent<SelectionTaskMeasure>().taskUI.transform.position = objIX2.transform.position;
                 this.GetComponent<SelectionTaskMeasure>().part = 2;
+                this.GetComponent<SelectionTaskMeasure>().scoreText.text = "Part 2";
                 part1Time = timeCounter;
                 part1Count = coinCount;
                 currentRespawnPos = first2SecondRespawn.position;
@@ -109,6 +110,7 @@ public class ParkourCounter : MonoBehaviour
                 objIX3.SetActive(true);
                 this.GetComponent<SelectionTaskMeasure>().taskUI.transform.position = objIX3.transform.position;
                 this.GetComponent<SelectionTaskMeasure>().part = 3;
+                this.GetComponent<SelectionTaskMeasure>().scoreText.text = "Part 3";
                 part2Time = timeCounter - part1Time;
                 part2Count = coinCount - part1Count;
                 currentRespawnPos = second2FinalRespawn.position;
@@ -126,6 +128,7 @@ public class ParkourCounter : MonoBehaviour
                 coinTextGO.SetActive(false);
                 recordTextGO.SetActive(false);
                 endTextGO.SetActive(true);
+                this.GetComponent<SelectionTaskMeasure>().scoreText.text = "DONE";
                 endTextGO.GetComponent<TMP_Text>().text = "Parkour Finished!\n" + recordText.text +
                     "\ntotal: " + timeCounter.ToString("F1") + ", " + coinCount.ToString() + "/69";
                 Debug.Log(endTextGO.GetComponent<TMP_Text>().text);

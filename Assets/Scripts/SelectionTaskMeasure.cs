@@ -44,7 +44,7 @@ public class SelectionTaskMeasure : MonoBehaviour
         parkourCounter = this.GetComponent<ParkourCounter>();
         dataRecording = this.GetComponent<DataRecording>();
         part = 1;
-        scoreText.text = "Part" + part.ToString();
+        scoreText.text = "Part " + part.ToString();
         enemiesCount = 10;
         accuracy = 0;
         projectilesCount = 0;
@@ -86,8 +86,6 @@ public class SelectionTaskMeasure : MonoBehaviour
 
     public void EndOneTask()
     {
-        enemyCounterText.text = "All enemies defeated!";
-
         accuracy = (enemiesInRound * 100 / projectilesCount);
         scoreText.text = scoreText.text + "Time: " + taskTime.ToString("F1") + ", Accuracy: " + $"Enemies={enemiesInRound}/Projectiles={projectilesCount} ({accuracy}%)" + "\n";
         parkourCounter.accuracy = accuracy;
@@ -103,6 +101,7 @@ public class SelectionTaskMeasure : MonoBehaviour
         scoreText.text = "Done Part " + part.ToString();
         completeCount = 0;
 
+        enemyCounterText.text = "All enemies defeated!";
         Invoke("EnemyCounterTextReset", 3f);
     }
 
