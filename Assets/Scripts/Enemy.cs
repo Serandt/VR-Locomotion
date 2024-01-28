@@ -8,13 +8,14 @@ public class Enemy : MonoBehaviour
     public GameObject wand;
     private bool catched;
     private bool inPortal;
-    private float startRotationY;
+    private float startRotationZ;
+    private float startRotationX;
 
     void Start()
     {
         catched = false;
         inPortal = false;
-        startRotationY = 0f;
+        startRotationZ = 0f;
     }
 
     void Update()
@@ -29,7 +30,8 @@ public class Enemy : MonoBehaviour
         if (inPortal)
         {
             //rotate enemy in portal to defeat it
-            if (Mathf.Abs(startRotationY - wand.GetComponentInParent<Transform>().rotation.z) > 0.4f)
+            if (Mathf.Abs(startRotationZ - wand.GetComponentInParent<Transform>().rotation.z) > 0.4f
+                || Mathf.Abs(startRotationX - wand.GetComponentInParent<Transform>().rotation.x) > 0.4f)
             {
                 selectionTaskMeasure.enemiesCount--;
                 Destroy(gameObject);
@@ -52,7 +54,8 @@ public class Enemy : MonoBehaviour
 
         if (other.gameObject.tag == "portal")
         {
-            startRotationY = wand.GetComponentInParent<Transform>().rotation.z;
+            startRotationZ = wand.GetComponentInParent<Transform>().rotation.z;
+            startRotationX = wand.GetComponentInParent<Transform>().rotation.x;
             inPortal = true;
         }
     }
