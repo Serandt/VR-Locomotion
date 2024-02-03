@@ -117,8 +117,8 @@ public class LocomotionTechnique : MonoBehaviour
         }
         else if (other.CompareTag("objectInteractionTask"))
         {
-            selectionTaskMeasure.isTaskStart = true;
-            selectionTaskMeasure.scoreText.text = "";
+            //selectionTaskMeasure.isTaskStart = true;
+            //selectionTaskMeasure.scoreText.text = "";
             selectionTaskMeasure.partSumErr = 0f;
             selectionTaskMeasure.partSumTime = 0f;
             // rotation: facing the user's entering direction

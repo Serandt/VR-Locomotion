@@ -66,6 +66,7 @@ public class WandScript : MonoBehaviour
             selectionTaskMeasure.wand = wand;
             selectionTaskMeasure.particles = particles;
             selectionTaskMeasure.isTaskStart = true;
+            selectionTaskMeasure.scoreText.text = "";
             enemies.SetActive(true);
             selectionTaskMeasure.StartOneTask();
         }

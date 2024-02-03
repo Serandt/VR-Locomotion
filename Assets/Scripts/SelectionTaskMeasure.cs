@@ -23,6 +23,7 @@ public class SelectionTaskMeasure : MonoBehaviour
     public bool isCountdown;
     public bool isWandAttached;
     public float taskTime;
+    public float defeateEnemeyTime;
     public GameObject taskUI;
     public ParkourCounter parkourCounter;
     public DataRecording dataRecording;
@@ -37,6 +38,7 @@ public class SelectionTaskMeasure : MonoBehaviour
 
     private float accuracy;
     public int projectilesCount;
+    public int projectilesUsedForPreviousEnemies;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +50,7 @@ public class SelectionTaskMeasure : MonoBehaviour
         enemiesCount = 10;
         accuracy = 0;
         projectilesCount = 0;
+        projectilesUsedForPreviousEnemies = 0;
         isWandAttached = false;
     }
 
@@ -58,6 +61,7 @@ public class SelectionTaskMeasure : MonoBehaviour
         {
             // recording time
             taskTime += Time.deltaTime;
+            defeateEnemeyTime += Time.deltaTime;
             enemyCounterText.text = $"Enemies remaining: {enemiesCount}";
 
             if (enemiesCount == 0 && isWandAttached)
@@ -79,6 +83,7 @@ public class SelectionTaskMeasure : MonoBehaviour
     public void StartOneTask()
     {
         taskTime = 0f;
+        defeateEnemeyTime = 0f;
         projectilesCount = 0;
         portal.SetActive(true);
         enemiesInRound = enemiesCount;
@@ -87,7 +92,7 @@ public class SelectionTaskMeasure : MonoBehaviour
     public void EndOneTask()
     {
         accuracy = (enemiesInRound * 100 / projectilesCount);
-        scoreText.text = scoreText.text + "Time: " + taskTime.ToString("F1") + ", Accuracy: " + $"Enemies={enemiesInRound}/Projectiles={projectilesCount} ({accuracy}%)" + "\n";
+        scoreText.text = scoreText.text + "Done Part " + part.ToString() + "! Time: " + taskTime.ToString("F1") + ", Accuracy: " + $"Enemies={enemiesInRound}/Projectiles={projectilesCount} ({accuracy}%)" + "\n";
         parkourCounter.accuracy = accuracy;
         partSumTime += taskTime;
         dataRecording.AddOneData(parkourCounter.locomotionTech.stage.ToString(), completeCount, taskTime, accuracy);
@@ -98,11 +103,20 @@ public class SelectionTaskMeasure : MonoBehaviour
         isWandAttached = false;
         Destroy(particles);
 
-        scoreText.text = "Done Part " + part.ToString();
         completeCount = 0;
+
+        defeateEnemeyTime = 0f;
+        projectilesUsedForPreviousEnemies = 0;
 
         enemyCounterText.text = "All enemies defeated!";
         Invoke("EnemyCounterTextReset", 3f);
+    }
+
+    public void EnemyDefeated()
+    {
+        scoreText.text = scoreText.text + "Time: " + defeateEnemeyTime.ToString("F1") + $", Projectiles used: {projectilesCount - projectilesUsedForPreviousEnemies}" + "\n";
+        defeateEnemeyTime = 0f;
+        projectilesUsedForPreviousEnemies = projectilesCount;
     }
 
     private void EnemyCounterTextReset()

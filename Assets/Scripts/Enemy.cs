@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
                 || Mathf.Abs(startRotationX - wand.GetComponentInParent<Transform>().rotation.x) > 0.4f)
             {
                 selectionTaskMeasure.enemiesCount--;
+                selectionTaskMeasure.EnemyDefeated();
                 Destroy(gameObject);
             }
         }
