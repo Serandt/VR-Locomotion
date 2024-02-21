@@ -101,7 +101,7 @@ public class LocomotionTechnique : MonoBehaviour
         {
             if (parkourCounter.parkourStart)
             {
-                this.transform.position = parkourCounter.currentRespawnPos;
+                player.transform.position = parkourCounter.currentRespawnPos;
             }
         }
     }
