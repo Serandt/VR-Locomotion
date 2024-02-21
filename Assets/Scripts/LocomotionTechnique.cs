@@ -59,7 +59,6 @@ public class LocomotionTechnique : MonoBehaviour
         elevationSpeed = 2f;
         playerRB = player.GetComponent<Rigidbody>();
         moving = false;
-        locomotionEnabled = true;
         PositionSetted = false;
     }
 
@@ -152,7 +151,7 @@ public class LocomotionTechnique : MonoBehaviour
 
     void MovePlayerForward()
     {
-        if (leaningDistance > leaningThreshold && locomotionEnabled)
+        if (leaningDistance > leaningThreshold)
         {
             playerRB.AddForce(transform.forward.normalized * movementSpeed, ForceMode.VelocityChange);
 
@@ -195,19 +194,16 @@ public class LocomotionTechnique : MonoBehaviour
 
     void MovePlayerVertically()
     {
-        if (locomotionEnabled)
+        if (currentPositionY > (broomControllerStartY + elevationThreshold) || grounded)
         {
-            if (currentPositionY > (broomControllerStartY + elevationThreshold) || grounded)
-            {
-                //up
-                player.transform.position += transform.up * Time.deltaTime * elevationSpeed;
-            }
-            else if (currentPositionY < (broomControllerStartY - elevationThreshold) && !grounded)
-            {
-                //down
-                player.transform.position -= transform.up * Time.deltaTime * elevationSpeed;
-            }
-        } 
+            //up
+            player.transform.position += transform.up * Time.deltaTime * elevationSpeed;
+        }
+        else if (currentPositionY < (broomControllerStartY - elevationThreshold) && !grounded)
+        {
+            //down
+            player.transform.position -= transform.up * Time.deltaTime * elevationSpeed;
+        }
     }
 
     void SetBroomHeight()
