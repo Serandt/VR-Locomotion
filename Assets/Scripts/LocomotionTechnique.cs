@@ -33,6 +33,8 @@ public class LocomotionTechnique : MonoBehaviour
     private float broomControllerStartX;
     private float currentPositionY;
     private float currentPositionX;
+    private float currentControllerDistanceY;
+    private float startControllerDistanceY;
     private float rotationThreshold;
     private float rotationSpeed;
     private float elevationThreshold;
@@ -76,23 +78,22 @@ public class LocomotionTechnique : MonoBehaviour
         leftTriggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, leftController); 
         rightTriggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, rightController);
 
-        //Set start position if zero
+        //Set start position for hmd and broom
         if (!PositionSetted && hmd.transform.localPosition.y > 0.5f)
         {
             PositionSetted = true;
-            hmdStartPositionY = hmd.transform.localPosition.y;
-            broomControllerStartX = OVRInput.GetLocalControllerPosition(leftController).x;
-            SetBroomHeight();
+            SetMovementVariableValues();
         }
 
         //Forward movement
         leaningDistance = Mathf.Abs(hmdStartPositionY - hmd.transform.localPosition.y);
 
         //Left and Right movement
-        currentPositionY = OVRInput.GetLocalControllerPosition(leftController).y;
-        
-        //Up and Down movement
         currentPositionX = OVRInput.GetLocalControllerPosition(leftController).x;
+
+        //Up and Down movement
+        currentPositionY = OVRInput.GetLocalControllerPosition(leftController).y;
+        currentControllerDistanceY = Mathf.Abs(hmd.transform.localPosition.y - currentPositionY);
 
         ////////////////////////////////////////////////////////////////////////////////
         // These are for the game mechanism.
@@ -103,6 +104,14 @@ public class LocomotionTechnique : MonoBehaviour
                 player.transform.position = parkourCounter.currentRespawnPos;
             }
         }
+    }
+
+    private void SetMovementVariableValues()
+    {
+        hmdStartPositionY = hmd.transform.localPosition.y;
+        broomControllerStartX = OVRInput.GetLocalControllerPosition(leftController).x;
+        broomControllerStartY = OVRInput.GetLocalControllerPosition(leftController).y;
+        startControllerDistanceY = Mathf.Abs(hmdStartPositionY - broomControllerStartY);
     }
 
     void OnTriggerEnter(Collider other)
@@ -159,22 +168,10 @@ public class LocomotionTechnique : MonoBehaviour
             {
                 playerRB.velocity = playerRB.velocity.normalized * maxSpeed;
             }
-
-            if (moving == false)
-            {
-                moving = true;
-                SetBroomHeight();
-            }
         }
         else
         {
             playerRB.velocity = playerRB.velocity * 0.97f;
-
-            if (moving == true)
-            {
-                moving = false;
-                SetBroomHeight();
-            }
         }
     }
 
@@ -194,20 +191,15 @@ public class LocomotionTechnique : MonoBehaviour
 
     void MovePlayerVertically()
     {
-        if (currentPositionY > (broomControllerStartY + elevationThreshold) || grounded)
+        if (currentControllerDistanceY < (startControllerDistanceY - elevationThreshold) || grounded)
         {
             //up
             player.transform.position += transform.up * Time.deltaTime * elevationSpeed;
         }
-        else if (currentPositionY < (broomControllerStartY - elevationThreshold) && !grounded)
+        else if (currentControllerDistanceY > (startControllerDistanceY + elevationThreshold) && !grounded)
         {
             //down
             player.transform.position -= transform.up * Time.deltaTime * elevationSpeed;
         }
-    }
-
-    void SetBroomHeight()
-    {
-        broomControllerStartY = OVRInput.GetLocalControllerPosition(leftController).y;
     }
 }
