@@ -1,30 +1,32 @@
 # VR-locomotion-parkour
 
-## Demo Video
 
-2022 with Object Interaction Task
+## Instructions
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=ZVDoHTefdR0
-" target="_blank"><img src="http://img.youtube.com/vi/ZVDoHTefdR0/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+While playing you will be using the left controller as a broom to move around and a wand with the right controller to exorcize ghosts.
 
+Before starting the game it's important to have the broom at the position it will be when playing.
+Move the broom to go up and down or to rotate left and right.
+To move forward you will have to go down as if you were sitting on a broom and to stop, just stand up.
 
-2021 Version
+**important** : The game is meant to be played with this controller attached to a "broom" between the legs but you can still play without one.
+If you are playing without the broom, think that the movement is based on the position of the controller and not the rotation.
+So you will have to actually move the controller up / down / left / right.
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=5s-vTwTFc7U
-" target="_blank"><img src="http://img.youtube.com/vi/5s-vTwTFc7U/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+When reaching the interaction part you will see a wand floating around. To start the interaction part touch it with the right controller.
+Once you do it ghosts will appear.
 
-## How to Start
+Now you have to shoot at them by pressing the inner trigger button of the right controller. When the ghost is hitted it will be catched on the top of the wand.
+To exorcize it, bring it to the portal and rotate the wand with them still in the portal.
 
-```{bash}
-git clone https://github.com/wenjietseng/VR-locomotion-parkour.git
-```
+Have fun!
 
-- download the GitHub repo and open __VRParkour__ folder as a Unity project
-- implement your locomotion technique in `LocomotionTechnique.cs`
-- Selection...
-- play and see how fast and how many coins you can get!
+## Music
+Main Theme (Overture) | The Grand Score by Alexander Nakarada | https://creatorchords.com/
+Music promoted by https://www.chosic.com/free-music/all/
+Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+
 
 ## Misc
 
@@ -65,9 +67,3 @@ git clone https://github.com/wenjietseng/VR-locomotion-parkour.git
 ## License
 
 MIT
-
-## Music
-Main Theme (Overture) | The Grand Score by Alexander Nakarada | https://creatorchords.com/
-Music promoted by https://www.chosic.com/free-music/all/
-Attribution 4.0 International (CC BY 4.0)
-https://creativecommons.org/licenses/by/4.0/
